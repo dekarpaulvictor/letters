@@ -1,11 +1,24 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:letters/models/letter.dart';
-import 'package:letters/presentation/screens/view_letter_screen.dart';
+import 'package:letters/presentation/presentation.dart' show ViewLetterScreen;
 import 'package:letters/utils/extensions.dart';
 
 class LetterCard extends StatelessWidget {
-  
-  const LetterCard({super.key});
+  LetterCard({super.key});
+
+  final letter = Letter(
+    id: Random().nextInt(100).toString(),
+    title: "This is exciting",
+    body:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl ultricies nunc, eget aliquam nisl nisl eget nisl.",
+    image:
+        "https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+    timeToRead: "2",
+    author: "John Doe",
+    date: "12/12/2020",
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +68,13 @@ class LetterCard extends StatelessWidget {
             child: Align(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  "https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
-                  fit: BoxFit.cover,
-                  width: 200,
-                  height: 100,
+                child: FadeInImage(
+                  placeholder: const AssetImage("assets/bg/abstract-1.jpeg"),
+                  image: const NetworkImage(
+                    "https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+                  ),
+                  imageErrorBuilder: (_, __, ___) => const SizedBox(),
+                  placeholderErrorBuilder: (_, __, ___) => const SizedBox(),
                 ),
               ),
             ),
@@ -77,18 +92,11 @@ class LetterCard extends StatelessWidget {
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: () => context.push(ViewLetterScreen(
-                    letter: Letter(
-                      title: "This is exciting",
-                      body:
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl ultricies nunc, eget aliquam nisl nisl eget nisl.",
-                      image:
-                          "https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
-                      timeToRead: "2",
-                      author: "John Doe",
-                      date: "12/12/2020",
+                  onTap: () => context.push(
+                    ViewLetterScreen(
+                      letter: letter,
                     ),
-                  )),
+                  ),
                   child: Text(
                     "Read more",
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(

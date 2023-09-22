@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:letters/models/letter.dart';
-import 'package:letters/presentation/widgets/sliverbar.dart';
+import 'package:letters/presentation/presentation.dart' show SliverBar;
 
 class ViewLetterScreen extends StatefulWidget {
   final Letter letter;
@@ -26,6 +26,34 @@ class _ViewLetterScreenState extends State<ViewLetterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: CircleAvatar(
+                      radius: 24,
+                      backgroundImage: NetworkImage(
+                        widget.letter.image,
+                      ),
+                    ),
+                    title: Text(
+                      widget.letter.author,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    subtitle: Text(
+                      widget.letter.date,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                    ),
+                    trailing: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.bookmark_border),
+                    ),
+                  ),
                   Text(
                     widget.letter.title,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(

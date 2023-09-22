@@ -1,12 +1,15 @@
 class Letter {
+  final String id;
   final String title;
   final String body;
   final String image;
   final String author;
   final String date;
   final String timeToRead;
+  
 
   Letter({
+    required this.id,
     required this.title,
     required this.body,
     required this.image,
@@ -17,6 +20,7 @@ class Letter {
 
   factory Letter.fromJson(Map<String, dynamic> json) {
     return Letter(
+      id: json['id'] as String,
       title: json['title'] as String,
       body: json['body'] as String,
       image: json['image'] as String,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:letters/presentation/widgets/letter_card.dart';
-import 'package:letters/presentation/widgets/sliverbar.dart';
+import 'package:letters/presentation/presentation.dart'
+    show SliverBar, LetterCard;
 
 class LetterScreen extends StatefulWidget {
   const LetterScreen({super.key});
@@ -20,13 +20,20 @@ class _LetterScreenState extends State<LetterScreen> {
     return Material(
         child: CustomScrollView(
       slivers: [
-        const SliverBar(),
+        SliverBar(
+          title: Text(
+            'Letters',
+            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+        ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            (context, index) => const LetterCard(),
+            (context, index) => LetterCard(),
             childCount: 10,
           ),
-        )
+        ),
       ],
     ));
   }

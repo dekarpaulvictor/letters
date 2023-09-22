@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'presentation/screens.dart' show SplashScreen;
+import 'presentation/presentation.dart' show SplashScreen;
 
 void main() {
   runApp(const App());
