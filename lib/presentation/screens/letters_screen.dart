@@ -43,9 +43,17 @@ class _LetterScreenState extends State<LetterScreen> {
             final data = snapshot.data;
 
             if (data == null || !data.$2) {
-              return const SliverFillRemaining(
+              return SliverFillRemaining(
                 child: Center(
-                  child: Text('Error fetching letters'),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.error_outline,
+                          color: Theme.of(context).colorScheme.error),
+                      const SizedBox(width: 8),
+                      const Text('Error getting letters'),
+                    ],
+                  ),
                 ),
               );
             }
