@@ -1,24 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:letters/models/letter.dart';
 import 'package:letters/presentation/presentation.dart' show ViewLetterScreen;
 import 'package:letters/utils/extensions.dart';
 
 class LetterCard extends StatelessWidget {
-  LetterCard({super.key});
+  const LetterCard({super.key, required this.letter});
 
-  final letter = Letter(
-    id: Random().nextInt(100).toString(),
-    title: "This is exciting",
-    body:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl ultricies nunc, eget aliquam nisl nisl eget nisl.",
-    image:
-        "https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
-    timeToRead: "2",
-    author: "John Doe",
-    date: "12/12/2020",
-  );
+  final Letter letter;
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +96,7 @@ class LetterCard extends StatelessWidget {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => context.showSnackBar("Added to favorites"),
                   child: Icon(
                     Icons.favorite_border,
                     color: Theme.of(context).colorScheme.secondary,
@@ -117,7 +105,7 @@ class LetterCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => context.showSnackBar("Added to bookmarks"),
                   child: Icon(
                     Icons.bookmark_border,
                     color: Theme.of(context).colorScheme.primary,

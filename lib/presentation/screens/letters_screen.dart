@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:letters/models/letter.dart';
 import 'package:letters/presentation/presentation.dart'
     show SliverBar, LetterCard;
+import 'package:letters/services/services.dart' show LetterService;
 
 class LetterScreen extends StatefulWidget {
   const LetterScreen({super.key});
@@ -17,8 +19,8 @@ class _LetterScreenState extends State<LetterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-        child: CustomScrollView(
+    return Scaffold(
+        body: CustomScrollView(
       slivers: [
         SliverBar(
           title: Text(
@@ -28,11 +30,34 @@ class _LetterScreenState extends State<LetterScreen> {
                 ),
           ),
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) => LetterCard(),
-            childCount: 10,
-          ),
+        FutureBuilder<(List<Letter>, bool)>(
+          future: LetterService.getLetters(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const SliverFillRemaining(
+                child: Center(
+                  child: CircularProgressIndicator.adaptive(),
+                ),
+              );
+            }
+            final data = snapshot.data;
+
+            if (data == null || !data.$2) {
+              return const SliverFillRemaining(
+                child: Center(
+                  child: Text('Error fetching letters'),
+                ),
+              );
+            }
+            return SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => LetterCard(
+                  letter: data.$1[index],
+                ),
+                childCount: data.$1.length,
+              ),
+            );
+          },
         ),
       ],
     ));
