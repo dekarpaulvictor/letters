@@ -6,7 +6,6 @@ class Letter {
   final String author;
   final String date;
   final String timeToRead;
-  
 
   Letter({
     required this.id,
@@ -28,6 +27,18 @@ class Letter {
       date: json['date'] as String,
       timeToRead: json['timeToRead'] as String,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'body': body,
+      'image': image,
+      'author': author,
+      'date': date,
+      'timeToRead': timeToRead,
+    };
   }
 
   @override
