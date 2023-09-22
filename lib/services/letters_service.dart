@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 //
 // Members are static coz we only need one instance of this class globally.
 class LetterService {
+  
+  // _baseUrl is a private static member that holds the base url for the API.
   static const String _baseUrl = 'https://letters-2c7e5.firebaseio.com';
 
   // getLetters is a static method that returns a Future of List<Letter>.
@@ -20,14 +22,12 @@ class LetterService {
       final response = await http.get(Uri.parse('$_baseUrl/letters.json'));
       final letters = <Letter>[];
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = response.body as Map<String, dynamic>;
-        data.forEach((key, value) {
-          letters.add(Letter.fromJson(value as Map<String, dynamic>));
-        });
-      }
+      if (response.statusCode != 200) throw Exception("Error Getting Letters");
 
-      // all other status codes are treated as errors
+      final Map<String, dynamic> data = response.body as Map<String, dynamic>;
+      data.forEach((key, value) {
+        letters.add(Letter.fromJson(value as Map<String, dynamic>));
+      });
 
       return (letters, true);
     } catch (e) {
