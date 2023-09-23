@@ -11,7 +11,6 @@ import 'package:letters/utils/mixins.dart';
 //
 // Members are static coz we only need one instance of this class globally.
 class LetterService with Constants {
-  
   // getLetters is a static method that returns a Future of List<Letter>.
   // It makes a GET request to the letters endpoint and returns a list of
   // letters.
@@ -38,7 +37,7 @@ class LetterService with Constants {
       // We can attempt to get letters from the local database if the request
       // fails.
 
-      return ([] as List<Letter>, false);
+      return (List<Letter>.from([]), false);
     }
   }
 
