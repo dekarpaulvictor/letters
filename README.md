@@ -1,4 +1,4 @@
-# Letters Flutter App
+# Letters
 
 Welcome to the Letters app, a newsletter subscription app built using Flutter.
 
