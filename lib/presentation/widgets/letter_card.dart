@@ -62,7 +62,7 @@ class LetterCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: FadeInImage(
-                  placeholder: const AssetImage("assets/bg/abstract-1.jpeg"),
+                  placeholder: const AssetImage("assets/images/abstract-1.jpeg"),
                   image: NetworkImage(
                     letter.image,
                   ),

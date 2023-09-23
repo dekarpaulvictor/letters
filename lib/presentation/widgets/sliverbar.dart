@@ -30,7 +30,7 @@ class SliverBar extends StatelessWidget {
                       debugPrint("Error: $error");
                       debugPrint("Stacktrace: $stackTrace");
                       return Image.asset(
-                        'assets/bg/abstract-1.jpeg',
+                        'assets/images/abstract-1.jpeg',
                         fit: BoxFit.cover,
                       );
                     },
