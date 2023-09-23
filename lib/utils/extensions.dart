@@ -14,13 +14,6 @@ extension BuildContextExt on BuildContext {
     );
   }
 
-  Future<T?> pushReplacement<T extends Object?, TO extends Object?>(
-      Widget page) {
-    return Navigator.of(this).pushReplacement<T, TO>(
-      MaterialPageRoute(builder: (context) => page),
-    );
-  }
-
   Future<T?> pushAndRemoveUntil<T extends Object?>(Widget page) {
     return Navigator.of(this).pushAndRemoveUntil<T>(
       MaterialPageRoute(builder: (context) => page),
