@@ -8,9 +8,9 @@ extension BuildContextExt on BuildContext {
 
   // Navigator
 
-  /// `push<T extends Object?>`: This extension simplifies the process of 
-  /// pushing a new page onto the navigation stack. It takes a Widget and uses 
-  /// Navigator.of(this) to navigate to the provided page using a 
+  /// `push<T extends Object?>`: This extension simplifies the process of
+  /// pushing a new page onto the navigation stack. It takes a Widget and uses
+  /// Navigator.of(this) to navigate to the provided page using a
   /// MaterialPageRoute.
   Future<T?> push<T extends Object?>(Widget page) {
     return Navigator.of(this).push<T>(
