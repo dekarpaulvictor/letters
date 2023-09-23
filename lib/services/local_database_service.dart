@@ -2,11 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:letters/models/letter.dart';
 import 'package:sqflite/sqflite.dart';
 
-/// LocalDatabaseService is a class that contains methods to interact with the
-/// local database.
 class LocalDatabaseService {
   late Database _database;
-  // open is a static method that opens the database.
+
   Future<void> open() async {
     try {
       _database = await openDatabase(
@@ -35,6 +33,15 @@ class LocalDatabaseService {
       );
     } catch (e) {
       debugPrint("Error Opening Database: $e");
+      debugPrintStack();
+    }
+  }
+
+  Future<void> close() async {
+    try {
+      await _database.close();
+    } catch (e) {
+      debugPrint("Error Closing Database: $e");
       debugPrintStack();
     }
   }
