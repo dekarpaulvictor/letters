@@ -16,6 +16,7 @@ dependencies:
   google_fonts: ^6.1.0
   http: any
   sqflite: ^2.3.0
+  chalk: ^1.2.1
 
 dev_dependencies:
   flutter_test:
