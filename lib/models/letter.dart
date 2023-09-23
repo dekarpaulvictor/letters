@@ -19,13 +19,13 @@ class Letter {
 
   factory Letter.fromJson(Map<String, dynamic> json) {
     return Letter(
-      id: json['id'] as String,
+      id: json['id'].toString(),
       title: json['title'] as String,
       body: json['body'] as String,
       image: json['image'] as String,
       author: json['author'] as String,
       date: json['date'] as String,
-      timeToRead: json['timeToRead'] as String,
+      timeToRead: json['timeToRead'].toString(),
     );
   }
 
