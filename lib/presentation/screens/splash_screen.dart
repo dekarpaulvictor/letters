@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:letters/presentation/presentation.dart' show LetterScreen;
+import 'package:letters/presentation/presentation.dart' show HomeScreen;
 import 'package:letters/utils/extensions.dart';
 
 /// Splash Screen
@@ -13,7 +13,7 @@ import 'package:letters/utils/extensions.dart';
 /// package to animate the text and the progress indicator.
 ///
 /// Above functionalities are out of scope for this test. So we will just
-/// navigate to the [LetterScreen] after a delay of 3 seconds.
+/// navigate to the [HomeScreen] after a delay of 3 seconds.
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     /// We ensure the navigation happens after the first frame is rendered.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(seconds: 3), () {
-        context.pushAndRemoveUntil(const LetterScreen());
+        context.pushAndRemoveUntil(const HomeScreen());
       });
     });
   }
@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
       child: Stack(
         children: [
           GestureDetector(
-            onTap: () => context.pushAndRemoveUntil(const LetterScreen()),
+            onTap: () => context.pushAndRemoveUntil(const HomeScreen()),
             child: Align(
               alignment: Alignment.center,
               child: Text(

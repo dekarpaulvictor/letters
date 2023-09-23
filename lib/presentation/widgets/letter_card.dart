@@ -21,15 +21,20 @@ class LetterCard extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Text(
-                  'This is exciting',
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: context.width * 0.7,
+                  ),
+                  child: Text(
+                    letter.title,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
                 ),
                 const Spacer(),
                 Text(
-                  '2 min read',
+                  '${letter.timeToRead} min read',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context).colorScheme.primary,
                         fontSize: 14,
@@ -42,7 +47,7 @@ class LetterCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+              '${letter.body.substring(0, 100)}...',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
@@ -58,10 +63,31 @@ class LetterCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 child: FadeInImage(
                   placeholder: const AssetImage("assets/bg/abstract-1.jpeg"),
-                  image: const NetworkImage(
-                    "https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+                  image: NetworkImage(
+                    letter.image,
                   ),
-                  imageErrorBuilder: (_, __, ___) => const SizedBox(),
+                  imageErrorBuilder: (_, __, ___) => SizedBox(
+                      height: 150,
+                      width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.error_outline,
+                            color: Colors.red,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'Error loading image',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  color: Colors.red,
+                                ),
+                          ),
+                        ],
+                      )),
                   placeholderErrorBuilder: (_, __, ___) => const SizedBox(),
                 ),
               ),
@@ -70,49 +96,27 @@ class LetterCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget aliquam ultricies, nunc nisl ultricies nunc, eget aliquam nisl nisl eget nisl.',
+              '${letter.body.substring(100, 200)}...',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
           // TextButton
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () => context.push(
-                    ViewLetterScreen(
-                      letter: letter,
+            child: GestureDetector(
+              onTap: () => context.push(
+                ViewLetterScreen(
+                  letter: letter,
+                ),
+              ),
+              child: Text(
+                "Read more",
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  child: Text(
-                    "Read more",
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () => context.showSnackBar("Added to favorites"),
-                  child: Icon(
-                    Icons.favorite_border,
-                    color: Theme.of(context).colorScheme.secondary,
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                GestureDetector(
-                  onTap: () => context.showSnackBar("Added to bookmarks"),
-                  child: Icon(
-                    Icons.bookmark_border,
-                    color: Theme.of(context).colorScheme.primary,
-                    size: 24,
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
           const Divider(),

@@ -11,6 +11,7 @@ class SliverBar extends StatelessWidget {
   @override
   SliverAppBar build(BuildContext context) {
     return SliverAppBar(
+      automaticallyImplyLeading: false,
       leading: leading,
       title: title,
       floating: true,

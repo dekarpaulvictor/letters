@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:letters/models/letter.dart';
 import 'package:letters/presentation/presentation.dart' show SliverBar;
+import 'package:letters/utils/extensions.dart';
 
 class ViewLetterScreen extends StatefulWidget {
   final Letter letter;
@@ -26,6 +27,13 @@ class _ViewLetterScreenState extends State<ViewLetterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Back button
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back_ios),
+                  ),
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: CircleAvatar(
@@ -42,16 +50,20 @@ class _ViewLetterScreenState extends State<ViewLetterScreen> {
                           ),
                     ),
                     subtitle: Text(
-                      widget.letter.date,
+                      widget.letter.date.format,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Theme.of(context).colorScheme.primary,
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
                           ),
                     ),
-                    trailing: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.bookmark_border),
+                    trailing: Text(
+                      '${widget.letter.timeToRead} min read',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                   ),
                   Text(
@@ -70,17 +82,6 @@ class _ViewLetterScreenState extends State<ViewLetterScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      '${widget.letter.timeToRead} min read',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                  )
                 ],
               ),
             ),

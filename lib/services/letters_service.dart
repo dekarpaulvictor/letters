@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:chalk/chalk.dart';
 import 'package:flutter/material.dart';
 import 'package:letters/models/letter.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +11,7 @@ import 'package:letters/utils/mixins.dart';
 //
 // Members are static coz we only need one instance of this class globally.
 class LetterService with Constants {
+  
   // getLetters is a static method that returns a Future of List<Letter>.
   // It makes a GET request to the letters endpoint and returns a list of
   // letters.
@@ -32,7 +32,7 @@ class LetterService with Constants {
 
       return (letters, true);
     } catch (e) {
-      debugPrint("Error Getting Letters: $e".red());
+      debugPrint("Error Getting Letters: $e");
       debugPrintStack();
 
       // We can attempt to get letters from the local database if the request
@@ -48,6 +48,7 @@ class LetterService with Constants {
   // Returns a record of type Letter and a boolean to indicate if the
   // request was successful.
   static Future<(Letter?, bool)> getLetter(String id) async {
+    assert(id.isNotEmpty, "ID cannot be empty");
     try {
       final response =
           await http.get(Uri.parse('${Constants.baseUrl}/letters/$id'));
@@ -71,14 +72,19 @@ class LetterService with Constants {
   // boolean to indicate if the request was successful.
   // It makes a POST request to the letters endpoint and returns a letter.
 
-  Future<(Letter?, bool)> postLetter(Letter letter) async {
+  static Future<(Letter?, bool)> postLetter(Map<String, String> data) async {
+    assert(data.isNotEmpty, "Data cannot be empty");
     try {
       final response = await http.post(
         Uri.parse('${Constants.baseUrl}/letters'),
         headers: {
           'Content-Type': 'application/json',
         },
-        body: letter.toJson(),
+        body: jsonEncode({
+          ...data,
+          "author": "John Doe",
+          "image": "https://picsum.photos/200/300",
+        }),
       );
 
       if (response.statusCode != 201) throw Exception("Error Creating Letter");
