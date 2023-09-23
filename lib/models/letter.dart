@@ -4,7 +4,7 @@ class Letter {
   final String body;
   final String image;
   final String author;
-  final String date;
+  final DateTime date;
   final String timeToRead;
 
   Letter({
@@ -24,7 +24,7 @@ class Letter {
       body: json['body'] as String,
       image: json['image'] as String,
       author: json['author'] as String,
-      date: json['date'] as String,
+      date: DateTime.parse(json['date'].toString()),
       timeToRead: json['timeToRead'].toString(),
     );
   }
