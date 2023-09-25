@@ -10,6 +10,8 @@ class LetterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final summary = letter.body
+        .substring(100, letter.body.length > 200 ? 200 : letter.body.length);
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
       child: Column(
@@ -62,7 +64,8 @@ class LetterCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: FadeInImage(
-                  placeholder: const AssetImage("assets/images/abstract-1.jpeg"),
+                  placeholder:
+                      const AssetImage("assets/images/abstract-1.jpeg"),
                   image: NetworkImage(
                     letter.image,
                   ),
@@ -96,7 +99,7 @@ class LetterCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Text(
-              '${letter.body.substring(100, 200)}...',
+              '$summary...',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
